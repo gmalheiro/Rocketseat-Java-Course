@@ -15,6 +15,7 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public TaskModel create(@RequestBody TaskModel taskModel){
+        System.out.println("In controller");
         var task = this.taskRepository.save(taskModel);
         return task;
     }
