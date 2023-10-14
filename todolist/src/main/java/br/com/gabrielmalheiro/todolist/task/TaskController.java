@@ -1,5 +1,7 @@
 package br.com.gabrielmalheiro.todolist.task;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,8 @@ public class TaskController {
     @PostMapping("/createTask")
     public TaskModel create(@RequestBody TaskModel taskModel, HttpServletRequest request){
         System.out.println("In task controller");
+        var userId = request.getAttribute("idUser");
+        taskModel.setUserId((UUID) userId);
         var task = this.taskRepository.save(taskModel);
         return task;
     }
