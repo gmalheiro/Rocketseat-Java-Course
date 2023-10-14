@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,6 +69,15 @@ public class TaskController {
     @GetMapping("/getTaskById/{id}")
     public ResponseEntity<TaskModel> get(@PathVariable UUID id){
         var task = this.taskRepository.findById(id).orElse(new TaskModel());
+        return ResponseEntity.status(HttpStatus.OK).body(task);
+    }
+
+    @DeleteMapping("/deleteTask/{id}")
+    public ResponseEntity<TaskModel> delete(@PathVariable UUID id){
+        var task = this.taskRepository.findById(id).orElse(new TaskModel());
+
+        this.taskRepository.delete(task);
+    
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 
