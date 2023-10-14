@@ -33,6 +33,7 @@ public class UserController {
 
         var userCreated = this.userRepository.save(userModel);
 
+        System.out.println(userCreated.toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 }
